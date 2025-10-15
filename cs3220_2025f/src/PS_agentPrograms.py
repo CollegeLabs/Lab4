@@ -50,6 +50,7 @@ def BestFirstSearchAgentProgram(f=None):
 def IDSearchAgentProgram(f=None):
   def program(problem):
     #your code here
+    return problem #only putting this here as a placeholder to stop an error
     
  
       
