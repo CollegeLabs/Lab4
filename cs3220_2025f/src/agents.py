@@ -36,7 +36,9 @@ from src.mazeProblemSolvingAgentSMARTClass import MazeProblemSolvingAgentSMART
 def ProblemSolvingMazeAgentBFS(initState,mazeWorldGraph,goalState):
     return MazeProblemSolvingAgentSMART(initState,mazeWorldGraph,goalState,BestFirstSearchAgentProgram())
 
- 
+def ProblemSolvingMazeAgentIDS(initState,mazeWorldGraph,goalState):
+    return MazeProblemSolvingAgentSMART(initState,mazeWorldGraph,goalState,IDSearchAgentProgram())
+
 # def ProblemSolvingNavAgentBFS(initState,WorldGraph,goalState):
 #     return navProblemSolvingAgent(initState,WorldGraph,goalState,BestFirstSearchAgentProgram())
 
