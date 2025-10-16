@@ -11,7 +11,12 @@ class MazeProblemSolvingAgent(SimpleProblemSolvingAgentProgram):
     #self.goal = self.problem.goal#The agent adopts the goal
 
   def update_state(self, state, percept):
-    return percept
+    #if percept == 'right': 
+    #elif percept == 'left':
+    #elif percept == 'down';
+    #elif percept == 'up':
+    #a potential solution. having the percept change the location by 1 in here
+    return self.state
 
   def formulate_goal(self, state):
     if self.goal is not None:

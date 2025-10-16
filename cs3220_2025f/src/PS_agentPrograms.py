@@ -48,10 +48,36 @@ def BestFirstSearchAgentProgram(f=None):
   
  
 def IDSearchAgentProgram(f=None):
+
+  def RecDLS(node, problem, Limit):
+      limit_reached = False
+      if problem.goal_test(node.state):
+         return node
+      elif node.depth == Limit:
+         return"cutoff"
+      else:
+        for successor in node.expand(problem):
+          result = RecDLS(successor, problem, Limit)
+          if result == "cutoff":
+             limit_reached = True
+          elif result != "failure":
+             return result
+      if limit_reached:
+         return "cutoff"
+      else:
+        return "failure"
+
   def program(problem):
-    #your code here
-    return problem #only putting this here as a placeholder to stop an error
+    Depth = 0
+    for Depth in range(1000):
+      node = Node(problem.initial)
+      result = RecDLS(node, problem, Depth)
+      if result != "cutoff":
+         return result
     
+  
+  return program #only putting this here as a placeholder to stop an error
+   
  
       
 
