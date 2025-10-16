@@ -12,7 +12,7 @@ class mazeGraph(Graph):
     for a in self.graph_dict.keys():
       #print(self.graph_dict[a].items())
       for (act, b) in self.graph_dict[a].items():
-        self.connect(a, b, 1)
+        self.connect(a, b, 1) #was 1 instead of act
 
   def connect(self, A, B, distance):
     #print(self.g)

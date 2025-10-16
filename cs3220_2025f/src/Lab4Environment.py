@@ -41,11 +41,12 @@ class Lab4NavEnvironment(Environment):
           agent.state=agent.update_state(agent.state, action)
           print(f"Agent in {agent.state} with performance = {agent.performance}")
           print(f"Action = {action} and State = {agent.state}")
+          print(f"Agent's location {self.status} and object at location {self.status[agent.location]}")
           if (self.status[agent.location] == 1): #if the agent is NOT under attack
             agent.performance -= 1
           else: #the spaceship is under attack (0's are walls, so they're ignored before this)
             print(f"Agent in {agent.state} is under attack!")
-            enemy = EnemyShip(self.status) #dont know how else to put size in without requiring it for ~3 other functions
+            enemy = EnemyShip(self.status) 
             if (agent.performance*2 < enemy.power):
               agent.performance = 0 #dies instantly
             else:

@@ -1,10 +1,11 @@
 from src.environmentClass import Environment
-
+from src.Lab4Agents import EnemyShip
 
 class MazeNavigationEnvironment(Environment):
-  def __init__(self, navGraph):
+  def __init__(self, navGraph, maze):
     super().__init__()
     self.status = navGraph
+    self.maze = maze
     
   def performance(self, agent):
     print(f"Agent performance: {agent.performance}")
@@ -28,9 +29,47 @@ class MazeNavigationEnvironment(Environment):
       else:
         print(f"Agent reached the goal: {agent.goal}")
       
+  def execute_action(self, agent, action): 
+        '''Check if agent alive, if so, execute action'''
+        if self.is_agent_alive(agent):
+            """Change agent's location -> agent's state;
+            Track performance.
+            -1 for each move."""
+          
+            agent.state=agent.update_state(agent.state, action)
+            print(f"Agent in {agent.state} with performance = {agent.performance}")
+            x, y = agent.state
+            if (self.maze[x][y] == 1): #if the agent is NOT under attack
+              agent.performance -= 1
+            else: #the spaceship is under attack (0's are walls, so they're ignored before this)
+              print(f"Agent in {agent.state} is under attack!")
+              enemy = EnemyShip(self.status) 
+              if (agent.performance*2 < enemy.power):
+                agent.performance = 0 #dies instantly
+              else:
+                agent.performance = agent.performance*0.9 #removes 10% of performance
+            self.update_agent_alive(agent)
 
+  def step(self):
+    if not self.is_done():
+        actions = []
+        for agent in self.agents:
+          if agent.alive:
+            #with agent.state because for PS Agent we don't need to percive
+            action=agent.seq.pop(0)
+            print("Agent decided to do {}.".format(action))
+            actions.append(action)
+          else:
+            actions.append("")
+            
+        for (agent, action) in zip(self.agents, actions):
+          self.execute_action(agent, action)
+    else:
+        print("There is no one here who could work...")
+    
+'''
   def execute_action(self, agent, action):
-    '''Check if agent alive, if so, execute action'''
+    #Check if agent alive, if so, execute action
     if self.is_agent_alive(agent):
         """Change agent's location -> agent's state;
         Track performance.
@@ -40,6 +79,7 @@ class MazeNavigationEnvironment(Environment):
         agent.performance -= 1
         print(f"Agent in {agent.state} with performance = {agent.performance}")
         self.update_agent_alive(agent)
+'''
 
         # if action == 'Right':
         #     agent.location = loc_B
@@ -59,20 +99,3 @@ class MazeNavigationEnvironment(Environment):
   #       print("Agent is starting in random location...")
   #       return random.choice([loc_A, loc_B])
   
-  def step(self):
-    if not self.is_done():
-        actions = []
-        for agent in self.agents:
-          if agent.alive:
-            #with agent.state because for PS Agent we don't need to percive
-            action=agent.seq.pop(0)
-            print("Agent decided to do {}.".format(action))
-            actions.append(action)
-          else:
-            actions.append("")
-            
-        for (agent, action) in zip(self.agents, actions):
-          self.execute_action(agent, action)
-    else:
-        print("There is no one here who could work...")
-    
