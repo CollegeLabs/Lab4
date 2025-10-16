@@ -175,7 +175,32 @@ def makeMazeTransformationModel(mazeActs):
         mazeStateSpace.setdefault(key,{})
 
     return mazeStateSpace
+'''
+def makeMazeTransformationModel(mazeActs):
+    mazeStateSpace={}
+    for key in mazeActs:
+      for action in mazeActs[key]:
+        if action=='left':
+          x=key[0]
+          y=key[1]-1
+          mazeStateSpace.setdefault(key,{})[action]=(x,y)
+        elif action=='up':
+          x=key[0]-1
+          y=key[1]
+          mazeStateSpace.setdefault(key,{})[action]=(x,y)
+        elif action=='right':
+          x=key[0]
+          y=key[1]+1
+          mazeStateSpace.setdefault(key,{})[action]=(x,y)
+        elif action=='down':
+          x=key[0]+1
+          y=key[1]
+          mazeStateSpace.setdefault(key,{})[action]=(x,y)
+      if len(mazeActs[key])==0:
+        mazeStateSpace.setdefault(key,{})
 
+    return mazeStateSpace
+'''
 def mazeStatesRandomLocations(n):
   x = []
   y = []

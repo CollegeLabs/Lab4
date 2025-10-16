@@ -32,6 +32,7 @@ class MazeNavigationEnvironment(Environment):
         """Change agent's location -> agent's state;
         Track performance.
         -1 for each move."""
+        print(agent.state, action)
         agent.state=agent.update_state(agent.state, action)
         agent.performance -= 1
         print(f"Agent in {agent.state} with performance = {agent.performance}")

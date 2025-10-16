@@ -47,7 +47,7 @@ class Environment:
         # else:
         #   print("There is no one here who could work...")
 
-  def run(self, steps=10):
+  def run(self, steps=20):
         #Run the Environment for given number of time steps.
         for step in range(steps):
             if self.is_done():

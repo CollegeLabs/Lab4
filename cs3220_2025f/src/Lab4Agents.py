@@ -12,6 +12,8 @@ class IterativeDLSAgent():
         self.performance = 0
 
 class EnemyShip():
-    def __init__(self):
-        size=7
-        self.power = (random.randint(10, 40)*(size*size))/100
+    def __init__(self, Graph):
+        size = len(Graph.nodes())
+        power = round(random.uniform(0.10,0.40), 2)
+        self.power = power*size
+
