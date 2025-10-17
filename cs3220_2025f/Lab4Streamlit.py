@@ -58,7 +58,7 @@ def buildGraph(graphData, nodeColorsDict):
     net_maze.toggle_physics(False)
     nodes=graphData.nodes()
     # initialize graph
-    g = nx.Graph()
+    g = nx.MultiDiGraph()
     
     # add the nodes
     for node in nodes:
