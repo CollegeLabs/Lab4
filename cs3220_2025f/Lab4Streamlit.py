@@ -12,12 +12,21 @@ from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
 
 nodeColors={
-    "wall":"red",
-    "path": "White",
+    "Wall":"red",
+    "Path": "White",
     "Goal": "Green",
     "Start": "Yellow",
     "Enemy": "Orange"
-}
+} 
+
+initState = (random.randint(0,6),random.randint(0,6))
+goalState = (random.randint(0,6),random.randint(0,6))
+
+mazeSize=7
+mainMaze = makeMaze(mazeSize)
+MazeCheck(mainMaze,initState,goalState)
+mazeAvalActs=defineMazeAvailableActions(mainMaze)
+maze1TM=makeMazeTransformationModel(mazeAvalActs)
 
 def drawBtn(e,a,c):
     option= [e,a,c]
@@ -35,7 +44,7 @@ def AgentStep(opt):
         e.step()
         st.success(" Agent now at : {}.".format(a.state))
         st.info("Current Agent performance {}:".format(a.performance))
-        c[a.state]="orange"
+        c[a.state]="Purple"
         st.info("State of the Environment:")
         buildGraph(e.status, c) 
     else:
@@ -58,11 +67,13 @@ def buildGraph(graphData, nodeColorsDict):
     net_maze.toggle_physics(False)
     nodes=graphData.nodes()
     # initialize graph
-    g = nx.Graph()
+    g = nx.MultiDiGraph()
     
     # add the nodes
     for node in nodes:
-        g.add_node(node, color=nodeColorsDict[node])
+        x, y = node
+        g.add_node(node, color=nodeColorsDict[node]) # screw this code
+    
     edges=[]
     for node_source in graphData.nodes():
         for node_target, dist in graphData.get(node_source).items():
@@ -73,8 +84,8 @@ def buildGraph(graphData, nodeColorsDict):
     # generate the graph
     net_maze.from_nx(g)
     
-    net_maze.save_graph('L3_RomaniaMap.html')
-    HtmlFile = open(f'L3_RomaniaMap.html', 'r', encoding='utf-8')
+    net_maze.save_graph('Maze.html')
+    HtmlFile = open(f'Maze.html', 'r', encoding='utf-8')
     components.html(HtmlFile.read(), height = 1200,width=1000)
     
     
@@ -109,23 +120,13 @@ def main():
         
         nodeColorsList=[]
 
-        
-
-        initState = (random.randint(0,6),random.randint(0,6))
-        goalState = (random.randint(0,6),random.randint(0,6))
-
-        mazeSize=7
-        mainMaze = makeMaze(mazeSize)
-        MazeCheck(mainMaze,initState,goalState)
-        mazeAvalActs=defineMazeAvailableActions(mainMaze)
-        maze1TM=makeMazeTransformationModel(mazeAvalActs)
         mazeWorldGraph=mazeGraph(maze1TM, mazeStatesLocations(list(maze1TM.keys())))
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
         for node in mazeWorldGraph.origin.keys():
             if mainMaze[node[0],node[1]]==1:
-                nodeColorsList.append(nodeColors["path"])
+                nodeColorsList.append(nodeColors["Path"])
             elif mainMaze[node[0],node[1]]==0:
-                nodeColorsList.append(nodeColors["wall"])
+                nodeColorsList.append(nodeColors["Wall"])
             else:
                 nodeColorsList.append(nodeColors["Enemy"])
         

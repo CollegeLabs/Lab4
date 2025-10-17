@@ -6,10 +6,6 @@ class MazeNavigationEnvironment(Environment):
     super().__init__()
     self.status = navGraph
     self.maze = maze
-    
-  def performance(self, agent):
-    print(f"Agent performance: {agent.performance}")
-    #return {agent.performance}
 
   def percept(self, agent):
     #Returns the agent's location, and the location status (Dirty/Clean).
