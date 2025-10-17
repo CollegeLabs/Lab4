@@ -12,11 +12,11 @@ from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
 
 nodeColors={
-    "wall":"red",
-    "path": "White",
+    "0":"red",
+    "1": "White",
     "Goal": "Green",
     "Start": "Yellow",
-    "Enemy": "Orange"
+    "2": "Orange"
 }
 
 def drawBtn(e,a,c):
@@ -61,11 +61,8 @@ def buildGraph(graphData, nodeColorsDict):
     g = nx.Graph()
     
     # add the nodes
-    #for node in nodes:
-        #g.add_node(node, color=nodeColorsDict[node])
-    g.add_nodes_from(nodes)
-    for node in g:
-        node["color"]=nodeColorsDict[node]
+    for node in nodes:
+        g.add_node(node, color=nodeColorsDict[node])
 
     edges=[]
     for node_source in graphData.nodes():
