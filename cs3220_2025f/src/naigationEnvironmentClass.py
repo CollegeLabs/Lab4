@@ -66,36 +66,3 @@ class MazeNavigationEnvironment(Environment):
           self.execute_action(agent, action)
     else:
         print("There is no one here who could work...")
-    
-'''
-  def execute_action(self, agent, action):
-    #Check if agent alive, if so, execute action
-    if self.is_agent_alive(agent):
-        """Change agent's location -> agent's state;
-        Track performance.
-        -1 for each move."""
-        print(agent.state, action)
-        agent.state=agent.update_state(agent.state, action)
-        agent.performance -= 1
-        print(f"Agent in {agent.state} with performance = {agent.performance}")
-        self.update_agent_alive(agent)
-'''
-
-        # if action == 'Right':
-        #     agent.location = loc_B
-        #     agent.performance -= 1
-        #     self.update_agent_alive(agent)
-        # elif action == 'Left':
-        #     agent.location = loc_A
-        #     agent.performance -= 1
-        #     self.update_agent_alive(agent)
-        # elif action == 'Suck':
-        #     if self.status[agent.location] == 'Dirty':
-        #         agent.performance += 10
-        #     self.status[agent.location] = 'Clean'
-
-  # def default_location(self, thing):
-  #       """Agents start in either location at random."""
-  #       print("Agent is starting in random location...")
-  #       return random.choice([loc_A, loc_B])
-  
