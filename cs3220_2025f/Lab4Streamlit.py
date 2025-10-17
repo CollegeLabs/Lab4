@@ -109,13 +109,7 @@ def main():
         
         nodeColorsList=[]
 
-        for node in mazeWorldGraph.nodes():
-            if mainMaze[node[0],node[1]]==1:
-                nodeColorsList.append(nodeColors["path"])
-            elif mainMaze[node[0],node[1]]==0:
-                nodeColorsList.append(nodeColors["wall"])
-            else:
-                nodeColorsList.append(nodeColors["Enemy"])
+        
 
         initState = (random.randint(0,6),random.randint(0,6))
         goalState = (random.randint(0,6),random.randint(0,6))
@@ -127,6 +121,13 @@ def main():
         maze1TM=makeMazeTransformationModel(mazeAvalActs)
         mazeWorldGraph=mazeGraph(maze1TM, mazeStatesLocations(list(maze1TM.keys())))
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
+        for node in mazeWorldGraph.origin.keys():
+            if mainMaze[node[0],node[1]]==1:
+                nodeColorsList.append(nodeColors["path"])
+            elif mainMaze[node[0],node[1]]==0:
+                nodeColorsList.append(nodeColors["wall"])
+            else:
+                nodeColorsList.append(nodeColors["Enemy"])
         
         maze_Env1=MazeNavigationEnvironment(mazeWorldGraph, mainMaze)
         BFSmazeAgent1=ProblemSolvingMazeAgentBFS(initState, mazeWorldGraph, goalState)
