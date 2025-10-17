@@ -10,7 +10,6 @@ from src.mazeProblemClass import MazeProblem
 from src.agents import *
 from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
-import matplotlib.pyplot as plt
 
 nodeColors={
     "Wall":"red",
@@ -62,8 +61,8 @@ def buildGraph(graphData, nodeColorsDict):
     g = nx.Graph()
     
     # add the nodes
-    colors = [nodeColors.get(node, "gray") for node in g.nodes()]
-    nx.draw(g, node_color=colors)
+    for node in nodes:
+        g.add_node(node, color=nodeColorsDict[node])
 
     edges=[]
     for node_source in graphData.nodes():
