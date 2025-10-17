@@ -12,11 +12,11 @@ from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
 
 nodeColors={
-    "0":"red",
-    "1": "White",
+    "Wall":"red",
+    "Path": "White",
     "Goal": "Green",
     "Start": "Yellow",
-    "2": "Orange"
+    "Enemy": "Orange"
 }
 
 def drawBtn(e,a,c):
@@ -61,8 +61,8 @@ def buildGraph(graphData, nodeColorsDict):
     g = nx.Graph()
     
     # add the nodes
-    for node in nodes:
-        g.add_node(node, color=nodeColorsDict[node])
+    colors = [nodeColors.get(node, "gray") for node in g.nodes()]
+    nx.draw(g, node_color=colors)
 
     edges=[]
     for node_source in graphData.nodes():
@@ -124,11 +124,11 @@ def main():
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
         for node in mazeWorldGraph.origin.keys():
             if mainMaze[node[0],node[1]]==1:
-                nodeColorsList.append(nodeColors["1"])
+                nodeColorsList.append(nodeColors["Path"])
             elif mainMaze[node[0],node[1]]==0:
-                nodeColorsList.append(nodeColors["0"])
+                nodeColorsList.append(nodeColors["Wall"])
             else:
-                nodeColorsList.append(nodeColors["2"])
+                nodeColorsList.append(nodeColors["Enemy"])
         
         maze_Env1=MazeNavigationEnvironment(mazeWorldGraph, mainMaze)
         BFSmazeAgent1=ProblemSolvingMazeAgentBFS(initState, mazeWorldGraph, goalState)
