@@ -35,7 +35,7 @@ def AgentStep(opt):
         e.step()
         st.success(" Agent now at : {}.".format(a.state))
         st.info("Current Agent performance {}:".format(a.performance))
-        c[a.state]="orange"
+        c[a.state]="Purple"
         st.info("State of the Environment:")
         buildGraph(e.status, c) 
     else:
@@ -124,11 +124,11 @@ def main():
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
         for node in mazeWorldGraph.origin.keys():
             if mainMaze[node[0],node[1]]==1:
-                nodeColorsList.append(nodeColors["path"])
+                nodeColorsList.append(nodeColors["1"])
             elif mainMaze[node[0],node[1]]==0:
-                nodeColorsList.append(nodeColors["wall"])
+                nodeColorsList.append(nodeColors["0"])
             else:
-                nodeColorsList.append(nodeColors["Enemy"])
+                nodeColorsList.append(nodeColors["2"])
         
         maze_Env1=MazeNavigationEnvironment(mazeWorldGraph, mainMaze)
         BFSmazeAgent1=ProblemSolvingMazeAgentBFS(initState, mazeWorldGraph, goalState)
