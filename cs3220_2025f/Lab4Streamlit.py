@@ -19,6 +19,15 @@ nodeColors={
     "Enemy": "Orange"
 } 
 
+initState = (random.randint(0,6),random.randint(0,6))
+goalState = (random.randint(0,6),random.randint(0,6))
+
+mazeSize=7
+mainMaze = makeMaze(mazeSize)
+MazeCheck(mainMaze,initState,goalState)
+mazeAvalActs=defineMazeAvailableActions(mainMaze)
+maze1TM=makeMazeTransformationModel(mazeAvalActs)
+
 def drawBtn(e,a,c):
     option= [e,a,c]
     st.button("Run One Agent's Step", on_click= AgentStep, args= [option])
@@ -62,7 +71,8 @@ def buildGraph(graphData, nodeColorsDict):
     
     # add the nodes
     for node in nodes:
-        g.add_node(node, color=nodeColorsDict[node.x, node.y])
+        x, y = node
+        g.add_node(node, color=nodeColorsDict[mainMaze[x][y]])
     
     edges=[]
     for node_source in graphData.nodes():
@@ -110,16 +120,6 @@ def main():
         
         nodeColorsList=[]
 
-        
-
-        initState = (random.randint(0,6),random.randint(0,6))
-        goalState = (random.randint(0,6),random.randint(0,6))
-
-        mazeSize=7
-        mainMaze = makeMaze(mazeSize)
-        MazeCheck(mainMaze,initState,goalState)
-        mazeAvalActs=defineMazeAvailableActions(mainMaze)
-        maze1TM=makeMazeTransformationModel(mazeAvalActs)
         mazeWorldGraph=mazeGraph(maze1TM, mazeStatesLocations(list(maze1TM.keys())))
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
         for node in mazeWorldGraph.origin.keys():
