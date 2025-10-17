@@ -23,35 +23,34 @@ def MazeCheck(mainMaze, initState, goalState):
     mainMaze[goalState] = 1
 
 class Lab4NavEnvironment(Environment):
-  def __init__(self, navGraph):
+  def __init__(self, navGraph, maze):
     super().__init__()
     self.status = navGraph
+    self.maze = maze
 
-  def locationcheck(self, agent):
-    agent.location
-    return agent.location
+  def performance(self, agent):
+    
 
-  def execute_action(self, agent, action): #action and state are backwards here
-      '''Check if agent alive, if so, execute action'''
-      if self.is_agent_alive(agent):
-          """Change agent's location -> agent's state;
-          Track performance.
-          -1 for each move."""
+  def execute_action(self, agent, action): 
+        '''Check if agent alive, if so, execute action'''
+        if self.is_agent_alive(agent):
+            """Change agent's location -> agent's state;
+            Track performance.
+            -1 for each move."""
           
-          agent.state=agent.update_state(agent.state, action)
-          print(f"Agent in {agent.state} with performance = {agent.performance}")
-          print(f"Action = {action} and State = {agent.state}")
-          print(f"Agent's location {self.status} and object at location {self.status[agent.location]}")
-          if (self.status[agent.location] == 1): #if the agent is NOT under attack
-            agent.performance -= 1
-          else: #the spaceship is under attack (0's are walls, so they're ignored before this)
-            print(f"Agent in {agent.state} is under attack!")
-            enemy = EnemyShip(self.status) 
-            if (agent.performance*2 < enemy.power):
-              agent.performance = 0 #dies instantly
-            else:
-              agent.performance = agent.performance*0.9 #removes 10% of performance
-          self.update_agent_alive(agent)
+            agent.state=agent.update_state(agent.state, action)
+            print(f"Agent in {agent.state} with performance = {agent.performance}")
+            x, y = agent.state
+            if (self.maze[x][y] == 1): #if the agent is NOT under attack
+              agent.performance -= 1
+            else: #the spaceship is under attack (0's are walls, so they're ignored before this)
+              print(f"Agent in {agent.state} is under attack!")
+              enemy = EnemyShip(self.status) 
+              if (agent.performance*2 < enemy.power):
+                agent.performance = 0 #dies instantly
+              else:
+                agent.performance = agent.performance*0.9 #removes 10% of performance
+            self.update_agent_alive(agent)
 
   def percept(self, agent):
     #Returns the agent's location, and the location status (Dirty/Clean).
