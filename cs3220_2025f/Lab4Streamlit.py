@@ -107,6 +107,16 @@ def main():
         st.header("Problem Solving Agents: Space Navigation Problem")
         st.header("_Initial Env._", divider=True)
         
+        nodeColorsList=[]
+
+        for node in mazeWorldGraph.origin.keys():
+            if mainMaze[node[0],node[1]]==1:
+                nodeColorsList.append(nodeColors["path"])
+            elif mainMaze[node[0],node[1]]==0:
+                nodeColorsList.append(nodeColors["wall"])
+            else:
+                nodeColorsList.append(nodeColors["Enemy"])
+
         initState = (random.randint(0,6),random.randint(0,6))
         goalState = (random.randint(0,6),random.randint(0,6))
 
