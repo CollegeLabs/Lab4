@@ -28,9 +28,6 @@ class Lab4NavEnvironment(Environment):
     self.status = navGraph
     self.maze = maze
 
-  def performance(self, agent):
-    
-
   def execute_action(self, agent, action): 
         '''Check if agent alive, if so, execute action'''
         if self.is_agent_alive(agent):
