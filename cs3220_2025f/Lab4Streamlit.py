@@ -72,7 +72,7 @@ def buildGraph(graphData, nodeColorsDict):
     # add the nodes
     for node in nodes:
         x, y = node
-        g.add_node(node, color=nodeColorsDict[node])
+        g.add_node(node, color=nodeColorsDict[node]) # screw this code
     
     edges=[]
     for node_source in graphData.nodes():
