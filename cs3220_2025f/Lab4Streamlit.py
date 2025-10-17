@@ -61,8 +61,12 @@ def buildGraph(graphData, nodeColorsDict):
     g = nx.Graph()
     
     # add the nodes
-    for node in nodes:
-        g.add_node(node, color=nodeColorsDict[node])
+    #for node in nodes:
+        #g.add_node(node, color=nodeColorsDict[node])
+    g.add_nodes_from(nodes)
+    for node in g:
+        node["color"]=nodeColorsDict[node]
+
     edges=[]
     for node_source in graphData.nodes():
         for node_target, dist in graphData.get(node_source).items():
@@ -138,7 +142,7 @@ def main():
         st.header("State of the Environment", divider="red")
         nodeColors[BFSmazeAgent1.state]="red"
         nodeColors[BFSmazeAgent1.goal]="green"
-        #buildGraph(mazeWorldGraph, nodeColors) 
+        buildGraph(mazeWorldGraph, nodeColors) 
         st.info(f"The Uniform Cost Search Agent in: {BFSmazeAgent1.state} with performance {BFSmazeAgent1.performance}.")
         st.info(f"The Iterative Deepened Search Agent in: {DLSAgent1.state} with performance {DLSAgent1.performance}.")
         st.info(f"Both Agents goal is: {BFSmazeAgent1.goal} .")
