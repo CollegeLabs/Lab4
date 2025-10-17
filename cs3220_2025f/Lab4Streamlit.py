@@ -107,6 +107,9 @@ def main():
         st.header("Problem Solving Agents: Space Navigation Problem")
         st.header("_Initial Env._", divider=True)
         
+        initState = (random.randint(0,6),random.randint(0,6))
+        goalState = (random.randint(0,6),random.randint(0,6))
+
         mazeSize=7
         mainMaze = makeMaze(mazeSize)
         MazeCheck(mainMaze,initState,goalState)
@@ -114,9 +117,6 @@ def main():
         maze1TM=makeMazeTransformationModel(mazeAvalActs)
         mazeWorldGraph=mazeGraph(maze1TM, mazeStatesLocations(list(maze1TM.keys())))
         #nodeColors=makeDefaultColors(romaniaGraph.graph_dict)
-        
-        initState = (random.randint(0,6),random.randint(0,6))
-        goalState = (random.randint(0,6),random.randint(0,6))
         
         maze_Env1=MazeNavigationEnvironment(mazeWorldGraph, mainMaze)
         BFSmazeAgent1=ProblemSolvingMazeAgentBFS(initState, mazeWorldGraph, goalState)
