@@ -17,7 +17,7 @@ nodeColors={
     "Goal": "Green",
     "Start": "Yellow",
     "Enemy": "Orange"
-}
+} 
 
 def drawBtn(e,a,c):
     option= [e,a,c]
@@ -62,7 +62,7 @@ def buildGraph(graphData, nodeColorsDict):
     
     # add the nodes
     for node in nodes:
-        g.add_node(node, color=nodeColorsDict[node])
+        g.add_node(node, color=nodeColorsDict[node.x, node.y])
     
     edges=[]
     for node_source in graphData.nodes():
