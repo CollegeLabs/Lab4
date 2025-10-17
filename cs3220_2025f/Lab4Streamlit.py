@@ -10,6 +10,7 @@ from src.mazeProblemClass import MazeProblem
 from src.agents import *
 from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
+import matplotlib.pyplot as plt 
 
 nodeColors={
     "Wall":"red",
