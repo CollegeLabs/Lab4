@@ -73,8 +73,8 @@ def buildGraph(graphData, nodeColorsDict):
     # generate the graph
     net_maze.from_nx(g)
     
-    net_maze.save_graph('L3_RomaniaMap.html')
-    HtmlFile = open(f'L3_RomaniaMap.html', 'r', encoding='utf-8')
+    net_maze.save_graph('Maze.html')
+    HtmlFile = open(f'Maze.html', 'r', encoding='utf-8')
     components.html(HtmlFile.read(), height = 1200,width=1000)
     
     
@@ -138,7 +138,7 @@ def main():
         st.header("State of the Environment", divider="red")
         nodeColors[BFSmazeAgent1.state]="red"
         nodeColors[BFSmazeAgent1.goal]="green"
-        buildGraph(mazeWorldGraph, nodeColors) 
+        #buildGraph(mazeWorldGraph, nodeColors) 
         st.info(f"The Uniform Cost Search Agent in: {BFSmazeAgent1.state} with performance {BFSmazeAgent1.performance}.")
         st.info(f"The Iterative Deepened Search Agent in: {DLSAgent1.state} with performance {DLSAgent1.performance}.")
         st.info(f"Both Agents goal is: {BFSmazeAgent1.goal} .")
