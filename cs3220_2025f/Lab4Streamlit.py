@@ -109,7 +109,7 @@ def main():
         
         nodeColorsList=[]
 
-        for node in mazeWorldGraph.origin.keys():
+        for node in mazeWorldGraph.nodes():
             if mainMaze[node[0],node[1]]==1:
                 nodeColorsList.append(nodeColors["path"])
             elif mainMaze[node[0],node[1]]==0:
