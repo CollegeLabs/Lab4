@@ -11,6 +11,10 @@ from src.agents import *
 from src.naigationEnvironmentClass import MazeNavigationEnvironment
 from src.Lab4Environment import *
 
+initState = (random.randint(0,6),random.randint(0,6))
+goalState = (random.randint(0,6),random.randint(0,6))
+
+nodeColorsList=[]
 nodeColors={
     "wall":"red",
     "path": "White",
@@ -75,13 +79,13 @@ def buildGraph(graphData, nodeColorsDict):
     
     # generate the graph
     #net_maze.from_nx(g)
-    nodes=["-".join(str(item) for item in el) for el in mazeWorldGraph.origin.keys()]
+    nodes=["-".join(str(item) for item in el) for el in graphData.origin.keys()]
 
     x_coords = []
     y_coords = []
 
-    for node in mazeWorldGraph.origin.keys():
-        x,y=mazeWorldGraph.getLocation(node)
+    for node in graphData.origin.keys():
+        x,y=graphData.getLocation(node)
         x_coords.append(x)
         y_coords.append(y)
 
@@ -91,12 +95,12 @@ def buildGraph(graphData, nodeColorsDict):
     for node in net_maze.nodes:
         node['label']=''
 
-    edge_weights = {(intTupleTostr(k), intTupleTostr(v2)) : k2 for k, v in mazeWorldGraph.origin.items() for k2, v2 in v.items()}
+    edge_weights = {(intTupleTostr(k), intTupleTostr(v2)) : k2 for k, v in graphData.origin.items() for k2, v2 in v.items()}
 
     edges=[]
 
-    for node_source in mazeWorldGraph.nodes():
-        for node_target, action in mazeWorldGraph.get(node_source).items():
+    for node_source in graphData.nodes():
+        for node_target, action in graphData.get(node_source).items():
             #node_target or node_source is a tuple -> convert to str
             if (intTupleTostr(node_source),intTupleTostr(node_target)) not in edges and (intTupleTostr(node_target), intTupleTostr(node_source)):
                 net_maze.add_edge(intTupleTostr(node_source),intTupleTostr(node_target), label=edge_weights[(intTupleTostr(node_source),intTupleTostr(node_target))])
@@ -141,13 +145,6 @@ def main():
         # Set header title
         st.header("Problem Solving Agents: Space Navigation Problem")
         st.header("_Initial Env._", divider=True)
-        
-        nodeColorsList=[]
-
-        
-
-        initState = (random.randint(0,6),random.randint(0,6))
-        goalState = (random.randint(0,6),random.randint(0,6))
 
         mazeSize=7
         mainMaze = makeMaze(mazeSize)
